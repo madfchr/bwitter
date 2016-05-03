@@ -1,16 +1,17 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 $(document).on('ready page:load', function() {
-  $('#new_tweet').submit(function(event) {
+  $('form').on()'submit',function(event) {
     event.preventDefault();
-    var tweet = $('tweet_message').serialize();
+    var str = $('form').serialize();
 
     $.ajax({
-      url: '/tweets?' + tweet
-      type: 'GET'
+      method: 'POST'
+      url: '/tweets'
+      data: str
       dataType: 'html'
     }).done(function(data) {
-      $('products').html(data);
+      $('.tweets').prepend(data)
     });
   });
 });
